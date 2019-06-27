@@ -1,6 +1,7 @@
 package com.cts.pmapps.dao;
 
 import com.cts.pmapps.domain.Project;
+import com.cts.pmapps.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,11 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProjectDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    ProjectRepository projectRepository;
     public List<Project> findAll(){
         return  jdbcTemplate.query("SELECT * FROM PROJECT ", new ProjectRowMapper() );
 
@@ -41,6 +45,13 @@ public class ProjectDao {
 
         return findAll();
     }
+    public Optional<Project> getProjectById(int id){
+        return projectRepository.findById(id);
+
+    }
+
+
+
 }
 
 

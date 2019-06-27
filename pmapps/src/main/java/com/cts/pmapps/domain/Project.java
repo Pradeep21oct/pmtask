@@ -1,19 +1,27 @@
 package com.cts.pmapps.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 @Entity
+@Table(name="PROJECT")
 public class Project {
-
+    @Column(name = "START_DATE")
     private Date startDate;
+    @Column(name = "END_DATE")
     public Date endDate;
+    @Column(name = "PRIORITY")
     public Integer priority;
+
+    @Column(name = "NO_OF_TASK")
     public Integer noOfTask;
     @Id
+    @Column(name = "PROJECT_ID",insertable=false, updatable=false)
+    @GeneratedValue
     public Integer projectId;
+    @Column(name = "PROJECT_NAME")
     public String projectName;
+    @Column(name = "PROJECT_MANAGER")
     public String projectManager;
 
     public String getStatus() {
@@ -24,6 +32,7 @@ public class Project {
         this.status = status;
     }
 
+    @Column(name = "PROJECT_STATUS")
     public String status;
 
     public Date getStartDate() {
