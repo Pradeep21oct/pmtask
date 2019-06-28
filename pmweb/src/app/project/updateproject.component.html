@@ -1,0 +1,124 @@
+<div class="card" >
+ 
+  <div class="card-body" style="width: 50%">
+ 
+    <form  #f="ngForm" (ngSubmit)="updateProject(f)" >
+      <div class="form-content">
+        
+
+          <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label">Project</label>
+              <div class="col-md-10" >
+                  <input class="form-control"
+                  name="projectName"
+                  required
+                  type="text" for="project.projectName"
+                  [(ngModel)]="project.projectName"
+                  #projectName="ngModel" [value]="'project.projectName'"/>
+                </div>
+                <div [hidden]="projectName.valid || projectName.pristine"  style="width: 50%;" 
+                class="alert alert-danger">
+                Project Name is required
+                </div>
+                </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" >Start Date</label>
+        <div class="col-md-4">
+          <input class="form-control"
+                 id="startDate"
+                 name="startDate"
+                 type="date" for="project.startDate"
+                required 
+                #startDate="ngModel" for="project.startDate"
+                [(ngModel)]="project.startDate" 
+                min="new Date().value"
+                />
+                
+            </div>
+            <div [hidden]="startDate.valid || startDate.pristine"  style="width: 50%;"
+            class="alert alert-danger">
+            Start date is required
+            </div>
+            <label class="col-md-2 col-form-label" >End Date</label>
+            <div class="col-md-4">
+              <input class="form-control"
+                     name="endDate"
+                     type="date" 
+                     required 
+                     #endDate="ngModel"
+                      [(ngModel)]="project.endDate" 
+                      [value]="project.endDate"
+                    />
+                </div>
+                <div [hidden]="endDate.valid || endDate.pristine"  style="width: 50%;" 
+                class="alert alert-danger">
+                End date is required
+                </div>
+                <div *ngIf="endDate.value<startDate.value"  style="width: 50%;"
+                class="alert alert-danger">
+                End date must be greate than start date.
+                </div>
+      </div>
+
+      
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label" >Priority</label>
+        <div class="col-md-10">
+          <ng5-slider [(value)]="value" [options]="options"
+          
+           name="priority"
+          #priority="ngModel" [value]="project.priority"
+          for="project.priority"
+          [(ngModel)]="project.priority"></ng5-slider> 
+            <!--input class="form-control"
+                  name="priority"
+                  type="text"
+                  type="text" for="priority"
+                  [(ngModel)]="value"
+                  #priority="ngModel" [value]="'value'"/-->
+      </div>
+     
+    </div>
+    <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label">Manager</label>
+        <div class="col-md-6" >
+            <input class="form-control"
+            name="projectManager"
+            type="text"
+            required
+            type="text" for="projectManager"
+                  [(ngModel)]="project.projectManager"
+                  #projectManager="ngModel" [value]="'project.projectManager'"
+            />
+           
+        </div>
+        <div [hidden]="projectManager.valid || projectManager.pristine"  style="width: 50%;" 
+        class="alert alert-danger">
+        Project Manager Name is required
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-outline-secondary" (click)='onCancel()'
+            type="button" > Search</button>
+              </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        
+      
+        <div class="col-sm-4" >
+            <button type="submit" style="margin-left: 40px;" class="btn btn-primary">Update</button>
+
+       </div>
+       <div class="col-sm-4" >
+          <button class="btn btn-outline-secondary" (click)='reset()'
+          type="button" > Reset</button>
+     </div>
+    </div>
+   
+   
+    </div>
+    </form>
+  </div>
+</div>

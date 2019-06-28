@@ -2,6 +2,8 @@ package com.cts.pmapps.controller;
 
 import com.cts.pmapps.domain.Project;
 import com.cts.pmapps.service.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,17 @@ import java.util.List;
 public class ProjectController {
      @Autowired
     ProjectService projectService;
-
+   Logger logger= LoggerFactory.getLogger(this.getClass());
     @GetMapping("/projects")
     public  @ResponseBody  List<Project> getProjectDetails(){
+        logger.info("Inside getProjectDetails");
           return projectService.getProjectDetails();
+
     }
 
     @GetMapping("/allprojects")
     public  @ResponseBody  List<String> getProjectNames(){
+        logger.info("Inside getProjectNames");
         return projectService.getProjectNames();
     }
 
@@ -29,12 +34,13 @@ public class ProjectController {
     @GetMapping("/projects/{id}")
     public  @ResponseBody Project getProjectById(@PathVariable int id){
 
-        System.out.println("geting");
+        logger.info("Inside getProjectById");
         return projectService.getProjectById(id);
     }
 
     @PostMapping("/projects/add")
     public @ResponseBody  List<Project> addProject(@RequestBody Project project){
+        logger.info("Inside addProject");
               return projectService.addProject(project);
     }
 }

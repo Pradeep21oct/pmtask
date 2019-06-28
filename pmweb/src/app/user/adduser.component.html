@@ -1,0 +1,117 @@
+<div class="card" >
+ 
+  <div class="card-body" style="width: 50%">
+ 
+    <form  #f="ngForm" (ngSubmit)="addUser(f)" >
+      <div class="form-content">
+        
+
+          <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label">First Name:</label>
+              <div class="col-md-10" >
+                  <input class="form-control"
+                  name="firstName"
+                  required
+                  type="text" for="firstName"
+                  [(ngModel)]="model.firstName"
+                  #firstName="ngModel" [value]="'model.firstName'"/>
+                </div>
+               
+               
+
+    </div>
+    <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label">Last Name</label>
+        <div class="col-md-10" >
+            <input class="form-control"
+            name="lastName"
+            type="text"
+            required
+            type="text" for="lastName"
+                  [(ngModel)]="model.lastName"
+                  #lastName="ngModel" [value]="'model.lastName'"
+            />
+           
+        </div>
+      </div>
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label">Emp Id:</label>
+          <div class="col-md-10" >
+              <input class="form-control"
+              name="empId"
+              required
+              type="text" for="empId"
+              [(ngModel)]="model.empId"
+              #empId="ngModel" [value]="'model.empId'"/>
+            </div>
+          </div>
+           
+
+
+
+    <div class="form-group row mb-2">
+        
+      
+        <div class="col-sm-4" >
+            <button type="submit" style="margin-left: 40px;" class="btn btn-primary">Add</button>
+
+       </div>
+       <div class="col-sm-4" >
+          <button class="btn btn-outline-secondary" (click)='reset()'
+          type="button" > Reset</button>
+     </div>
+    </div>
+   
+  
+    </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+   
+  
+    <div class="card-body">
+  
+     <div class="table-responsive">
+        <table class="table  table-striped table-hover">
+          <thead>
+            <tr style="color: blue;">
+              <th>
+                Emp Id
+               </th>
+              <th>
+               First Name
+              </th>
+              <th>
+                Last Name
+               </th>
+             
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usr of user">
+              <td>
+                {{usr.empId}}
+              </td>
+              <td>
+                  {{usr.firstName}}
+              </td>
+              
+              <td> {{usr.lastName}}</td>
+             
+              <td nowrap>
+                          
+              <button   (click)="updateUser(usr)">Edit</button> &nbsp;
+              <button   (click)="delete(usr)">Delete</button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+    
+  </div>
+ 
