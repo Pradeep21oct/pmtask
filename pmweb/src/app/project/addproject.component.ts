@@ -7,6 +7,7 @@ import { modelGroupProvider } from '@angular/forms/src/directives/ng_model_group
 import {Sort} from '@angular/material/sort';
 
 import { Options } from 'ng5-slider';
+import { UserService } from '../user/user.service';
 @Component({
   selector: 'app-addproject',
   templateUrl: './addproject.component.html',
@@ -18,10 +19,12 @@ export class AddprojectComponent implements OnInit {
   project:Project[];
   projectForm: FormGroup;
   isadduser:boolean=false;
+  users:string[];
   sortedData: Project[];
-  constructor(private router:Router,private route: ActivatedRoute,private projectServivce:ProjectService) {
+  constructor(private router:Router,private route: ActivatedRoute,private projectServivce:ProjectService,private userService:UserService) {
    
     this.projectServivce.getProjectDeatils().subscribe(prj=>this.project=prj,error=>console.log(error));
+    this.userService.getUsers().subscribe(usr=>this.users=usr,error=>console.log(error));
    // this.sortedData = this.project.slice();
     console.log(this.project);
    }
@@ -80,9 +83,14 @@ sortData(sort: Sort) {
     }
   });
 }
-suspends(proj:Project){
-  console.log("Suspends 777777777777777  "+JSON.stringify(proj));
+suspends(projId:string){
+  console.log("Suspends   "+JSON.stringify(projId));
+  this.projectServivce.suspendsProject((projId))
+  .subscribe(p=>{
+    this.project=p;
+    },error=>console.log(error));
 }
+
 reset(){
   
   this.formValue.resetForm();

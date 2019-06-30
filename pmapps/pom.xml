@@ -46,6 +46,35 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>2.1.0</version>
+				<executions>
+					<execution>
+						<id>jmeter-tests</id>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>de.codecentric</groupId>
+				<artifactId>jmeter-graph-maven-plugin</artifactId>
+				<version>0.1.0</version>
+				<configuration>
+					<inputFile>${project.build.directory}/jmeter/results/PMaap Page.jtl</inputFile>
+					<graphs>
+						<graph>
+							<pluginType>ResponseTimesOverTime</pluginType>
+							<width>800</width>
+							<height>600</height>
+							<outputFile>${project.build.directory}/jmeter/results/PMaap Request.png</outputFile>
+						</graph>
+					</graphs>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

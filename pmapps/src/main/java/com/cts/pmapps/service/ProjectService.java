@@ -2,6 +2,7 @@ package com.cts.pmapps.service;
 
 import com.cts.pmapps.dao.ProjectDao;
 import com.cts.pmapps.domain.Project;
+import com.cts.pmapps.domain.Task;
 import com.cts.pmapps.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class ProjectService {
           return projectDao.getProjectById(id).get();
 
     }
+    public List<Project>  suspendsProject(int projectId){
+        return projectDao.suspendsProject(projectId);
 
+    }
 
 }

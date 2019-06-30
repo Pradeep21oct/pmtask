@@ -71,13 +71,7 @@ public class UserDao {
     }
 
     public  List<User> deleteUser(int userId){
-        jdbcTemplate.update(con->{
-            PreparedStatement ps = con.prepareStatement(DELETE_SQL);
-            ps.setInt(1,userId);
-
-            return ps;
-        });
-
+        userRepository.deleteById(userId);
         return findAll();
     }
 }

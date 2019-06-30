@@ -1,0 +1,30 @@
+
+CREATE DATABASE `mydb`;
+
+CREATE TABLE `mydb`.`task`
+(`TASK_ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`PARENT_ID` char(20),
+`PROJECT_ID` char(20),
+`TASK_NAME` char(20),
+`START_DATE` date NOT NULL ,
+`END_DATE` date NOT NULL,
+`STATUS` char(20),
+`PRIORITY` int(11) NOT NULL);
+
+CREATE TABLE mydb.`USERS`
+(    `USER_ID` int(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `FIRST_NAME` char(20) NOT NULL,
+    `LAST_NAME` char(20) NOT NULL,
+    `EMP_ID` int(11),
+    `PROJECT_ID` int(11),
+    `TASK_ID` int(11)
+   ) ;
+
+   CREATE TABLE mydb.`PROJECT`
+   (  `PROJECT_ID` int(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+     `PROJECT_NAME` char(20) NOT NULL,
+     `START_DATE` date NOT NULL,
+     `END_DATE` date NOT NULL,
+     `PROJECT_STATUS` char(20) NOT NULL,
+     `PROJECT_MANAGER` varchar(20),
+    `PRIORITY` int(2) NOT NULL) ;

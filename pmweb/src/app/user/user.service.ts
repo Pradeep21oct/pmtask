@@ -11,7 +11,7 @@ export class UserService {
 
   serverUrls:string='http://localhost:8080/users/'
   allusersUrls:string='http://localhost:8080/allusers/'
-  updateUrls:string='http://localhost:8080/users/update'
+  updateUrls:string='http://localhost:8080/users/update/'
   constructor(private http:HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,12 +35,11 @@ getUsers():Observable<string[]>{
   );
 
 }
-updateUser(user:User):Observable<any>{
-   console.log("updating   ************"+JSON.stringify(user));
-   console.log("updating   *url***********"+this.serverUrls+'update/');
-   this.http.post<string>(this.updateUrls,user,this.httpOptions)
-   .pipe(tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError) );
-  return
+updateUser(user:User){
+  
+   return this.http.get<User[]>(this.updateUrls+user).pipe(
+    tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)
+  );
    
 }
 
@@ -59,14 +58,12 @@ getUserById(userId:number):Observable<User>{
 
 }
 
-deleteUser(user:User):Observable<User[]>{
+deleteUser(useid:string):Observable<User[]>{
   // console.log("service   ************"+JSON.stringify(project));
-   
-  this.http.post<string>(this.serverUrls+'delete/'+user.userid,this.httpOptions)
-  .pipe(catchError(this.handleError));
-  return this.http.post<User[]>(this.serverUrls,user,this.httpOptions).pipe(
-   tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)
- );
+ return this.http.get<User[]>(this.serverUrls+'delete/'+useid).pipe(
+    tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)
+  );
+ 
 }
   
   private handleError(err: HttpErrorResponse) {

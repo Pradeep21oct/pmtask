@@ -12,7 +12,7 @@ export class ProjectService {
   serverUrls:string='http://localhost:8080/projects/'
   serverUrl:string='http://localhost:8080/projects/add/'
   allserverUrls:string='http://localhost:8080/allprojects/'
-  
+  suspendsserverUrls:string='http://localhost:8080/projects/suspends/'
   constructor(private http:HttpClient) { }
   httpOptions = {
     headers: new HttpHeaders({
@@ -36,9 +36,15 @@ getProjectDeatils():Observable<Project[]>{
   return this.http.get<Project[]>(this.serverUrls).pipe(
     tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)
   );
-
 }
   
+suspendsProject(projectId:string):Observable<Project[]>{
+  return this.http.get<Project[]>(this.suspendsserverUrls+projectId).pipe(
+    tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)
+  );
+
+}
+
 getProjects():Observable<string[]>{
   return this.http.get<string[]>(this.allserverUrls).pipe(
     tap(data => console.log('All: ' + JSON.stringify(data))), catchError(this.handleError)

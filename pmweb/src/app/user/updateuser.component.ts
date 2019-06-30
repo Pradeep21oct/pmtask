@@ -27,8 +27,15 @@ export class UpdateuserComponent implements OnInit {
  
   
     console.log("Updating"+JSON.stringify(user));
-    this.userService.updateUser(user);
+   //// this.userService.updateUser(user);
     
+   // this.userService.updateUser(user);
+    this.userService.updateUser((user))
+    .subscribe(()=>{
+          this.router.navigateByUrl('/users');
+        
+        },error=>console.log(error));
+
     this.router.navigateByUrl('/users');
   }
 

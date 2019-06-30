@@ -43,4 +43,11 @@ public class ProjectController {
         logger.info("Inside addProject");
               return projectService.addProject(project);
     }
+
+    @GetMapping("/projects/suspends/{projectId}")
+    public void suspend(@PathVariable int projectId){
+        logger.info("Inside Suspends project Id:"+projectId);
+        projectService.suspendsProject(projectId);
+    }
+
 }

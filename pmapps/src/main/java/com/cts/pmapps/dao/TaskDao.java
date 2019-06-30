@@ -20,10 +20,11 @@ public class TaskDao {
     private static final  String INSERT_SQL=" insert into TASK(PARENT_ID,PROJECT_ID,TASK_NAME,START_DATE,END_DATE,STATUS,PRIORITY)\n" +
             "    values(?,?,?,?,?,?,?)";
     private static final  String SELECT_SQL="SELECT * FROM TASK ";
-    private static final  String SEARCH_SQL="SELECT * FROM TASK where PROJECT_ID like %?%";
+    private static final  String SEARCH_SQL="SELECT * FROM TASK where PROJECT_ID like %'?'%";
     private static final  String SELECT_BY_ID_SQL="SELECT * FROM USERS where  USER_ID=?";
     private static final  String UPDATE_SQL=" update USERS set FIRST_NAME=? ,LAST_NAME=?,EMP_ID=?\n" +
             " where  USER_ID=?";
+
     private static final  String DELETE_SQL=" delete from where  USER_ID=?\n";
     @Autowired
     TaskRepository taskRepository;
@@ -37,9 +38,9 @@ public class TaskDao {
     }
     public List<Task> search(String project){
         return  jdbcTemplate.query(con->{
-           PreparedStatement ps = con.prepareStatement(SEARCH_SQL);
-            ps.setString(1, project);
-            return ps;
+
+           PreparedStatement ps = con.prepareStatement("SELECT * FROM TASK where PROJECT_ID like '%"+project+"%'");
+                  return ps;
         }, new TaskRowMapper() );
 
     }
@@ -60,7 +61,7 @@ public class TaskDao {
             ps.setString(3, task.getTaskName());
             ps.setDate(4, new java.sql.Date(task.getStartDate().getTime()));
             ps.setDate(5,new java.sql.Date(task.getEndDate().getTime()));
-            ps.setString(6, task.getStatus());
+            ps.setString(6, "Open");
             ps.setInt(7, task.getPriority());
            return ps;
         },holder);
@@ -76,7 +77,10 @@ public class TaskDao {
     }
 
     public  List<Task> deleteTask(int taskId){
-
+          jdbcTemplate.update(con->{
+            PreparedStatement ps = con.prepareStatement("update TASK set STATUS='End' where  TASK_ID= '"+taskId+"'");
+            return ps;
+        } );
         return findAll();
     }
 }

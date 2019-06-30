@@ -4,6 +4,8 @@ import com.cts.pmapps.domain.Project;
 
 import com.cts.pmapps.domain.User;
 import com.cts.pmapps.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +16,13 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
-
+    Logger logger= LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/users")
     public  @ResponseBody
     List<User> getUserDetails(){
 
-        System.out.println("geting");
+        logger.info("inside getUserDetails");
         return userService.getUserDetails();
     }
     @GetMapping("/allusers")
@@ -30,9 +32,8 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     public  @ResponseBody User getUserById(@PathVariable int userId){
-
-        System.out.println("geting");
-        return userService.getUserById(userId);
+        logger.info("inside getUserDetails getUserById "+userId);
+            return userService.getUserById(userId);
     }
 
     @PostMapping("/users/add")
@@ -41,15 +42,15 @@ public class UserController {
     }
 
 
-    @PostMapping("/users/delete/{userId}")
+    @GetMapping("/users/delete/{userId}")
     public void deleteUser(@PathVariable int userId){
-        System.out.println("deleting");
-         userService.deleteUser(userId);
+        logger.info("inside deleteUser user id "+userId);
+            userService.deleteUser(userId);
     }
 
-    @PostMapping("/users/update")
-    public   void updateUser(@RequestBody User user){
-        System.out.println("updating");
+    @GetMapping("/users/update/{user}")
+    public   void updateUser(@PathVariable User user){
+         logger.info("inside updateUser"+user);
          userService.updateUser(user);
     }
 }

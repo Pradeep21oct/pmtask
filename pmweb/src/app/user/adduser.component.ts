@@ -49,23 +49,19 @@ export class AdduserComponent implements OnInit {
 }
 
 updateUser(use:User){
-  console.log("Updates88888888888888888888    "+JSON.stringify(use));
-  this.router.navigate(['/users',use.userid])
+    this.router.navigate(['/users',use.userid])
 }
 
 
-delete(use:User){
-  console.log("delete777777777777  "+JSON.stringify(use));
-  this.userService.deleteUser((use))
+delete(useid:string){
+ 
+  this.userService.deleteUser((useid))
   .subscribe(usr=>{
     this.user=usr;
-   // this.formValue.resetForm();
-      
-  
+   
   },error=>console.log(error));
   
-  console.log("delete777777777777  "+JSON.stringify(use));
-}
+  }
 
 
 }

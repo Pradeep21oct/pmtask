@@ -2,7 +2,7 @@
  
   <div class="card-body" style="width: 50%">
  
-    <form  #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <form  #f="ngForm" >
       <div class="form-content">
         
     <div class="form-group row mb-2">
@@ -19,8 +19,8 @@
            
         </div>
          <div class="col-md-4">
-            <button class="btn btn-outline-secondary" (click)='onCancel()'
-            type="button" > Search</button>
+            <button class="btn btn-outline-secondary" 
+            type="button" (click)="search(project)"  > Search</button>
         </div>
     </div>
     
@@ -38,11 +38,15 @@
         <table class="table  table-striped table-hover">
           <thead>
             <tr style="color: blue;">
+                <th>
+                    Project
+                    </th>
               <th>
               Task
               </th>
               <th>Parent</th>
               <th>Priority</th>
+              <th>Status</th>
               <th>Start Date</th>
               <th>End Date</th>
               <th></th>
@@ -55,17 +59,22 @@
                 {{task.project}}
               </td>
               <td>
+                  {{task.taskName}}
+                </td>
+              <td>
                   {{task.parent}}
               </td>
             
               <td> {{task.priority}}</td>
+              <td> {{task.status}}</td>
               <td> {{task.startDate|date:'shortDate'}}</td>
               <td> {{task.endDate|date:'shortDate'}}</td>
             
-              <td nowrap>
-                          
-              <button   (click)="update(proj)">Edit</button> &nbsp;
-              <button   (click)="suspends(proj)">End Task</button>
+              <td nowrap  >
+              <span *ngIf="task.status!='End'">
+              <button   (click)="update(task)">Edit</button> &nbsp;
+              <button   (click)="endTask(task.taskId)">End Task</button>
+            </span>
             </td>
             </tr>
           </tbody>

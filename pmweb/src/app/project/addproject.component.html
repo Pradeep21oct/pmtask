@@ -81,25 +81,22 @@
     </div>
     <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label">Manager</label>
-        <div class="col-md-6" >
-            <input class="form-control"
-            name="projectManager"
-            type="text"
-            required
-            type="text" for="projectManager"
-                  [(ngModel)]="model.projectManager"
-                  #projectManager="ngModel" [value]="'model.projectManager'"
-            />
+        <div class="col-md-8" >
+          
+            <select class="form-control"
+            name="projectManager" 
+           required
+           #projectManager="ngModel"
+           [(ngModel)]="model.projectManager">
+               <option *ngFor="let usr of users" [value]="usr">{{usr}}</option>
+             </select>
            
         </div>
         <div [hidden]="projectManager.valid || projectManager.pristine"  style="width: 50%;" 
         class="alert alert-danger">
         Project Manager Name is required
         </div>
-        <div class="col-md-4">
-            <button class="btn btn-outline-secondary" (click)='onCancel()'
-            type="button" > Search</button>
-              </div>
+       
     </div>
 
     <div class="form-group row mb-2">
@@ -157,9 +154,10 @@
                   {{proj.status}}
               </td>
               <td nowrap>
-                          
+             <span *ngIf="proj.status!='Suspends'">       
               <button   (click)="update(proj)">Edit</button> &nbsp;
-              <button   (click)="suspends(proj)">Suspends</button>
+              <button   (click)="suspends(proj.projectId)">Suspends</button>
+               </span>
             </td>
             </tr>
           </tbody>

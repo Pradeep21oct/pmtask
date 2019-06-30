@@ -1,6 +1,7 @@
 package com.cts.pmapps.dao;
 
 import com.cts.pmapps.domain.Project;
+import com.cts.pmapps.domain.Task;
 import com.cts.pmapps.repo.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,7 +51,13 @@ public class ProjectDao {
 
     }
 
-
+    public  List<Project> suspendsProject(int projectId){
+        jdbcTemplate.update(con->{
+            PreparedStatement ps = con.prepareStatement("update PROJECT set PROJECT_STATUS='Suspends' where  PROJECT_ID= '"+projectId+"'");
+            return ps;
+        } );
+        return findAll();
+    }
 
 }
 
